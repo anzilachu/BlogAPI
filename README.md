@@ -2,7 +2,6 @@
 
 This document provides instructions on how to test each endpoint of the API.
 
-
 ## Endpoints
 
 ### Authors
