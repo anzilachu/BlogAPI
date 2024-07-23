@@ -9,6 +9,8 @@ from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 import requests
 import logging
+from django.urls import reverse
+from rest_framework.request import Request
 
 from .models import Author, Post
 from .serializers import AuthorSerializer, PostSerializer
@@ -41,7 +43,7 @@ class AuthorViewSet(viewsets.ModelViewSet):
             }, status=status.HTTP_403_FORBIDDEN)
         return super().destroy(request, *args, **kwargs)
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request: Request, *args, **kwargs):
         name = request.data.get('name')
         email = request.data.get('email')
         bio = request.data.get('bio', '')
@@ -56,10 +58,13 @@ class AuthorViewSet(viewsets.ModelViewSet):
         user = User.objects.create_user(username=email, email=email, password=password)
         author = Author.objects.create(user=user, name=name, email=email, bio=bio)
         
+        login_url = request.build_absolute_uri(reverse('login'))
+        
         return Response({
             'author_id': author.id,
             'name': author.name,
-            'email': author.email
+            'email': author.email,
+            'login_url': login_url
         }, status=status.HTTP_201_CREATED)
 
 class LoginView(TokenObtainPairView):
