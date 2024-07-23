@@ -28,8 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-OLA_MAPS_API_KEY = 'mDemwpFW76X0xVx08VOf360KK7It8mIOHds9vANS'
-# Application definition
+
+from decouple import config
+
+OLA_MAPS_API_KEY = config('OLA_MAPS_API_KEY')
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,7 +58,7 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  
-    'ROTATE_REFRESH_TOKENS': True,
+    'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
@@ -156,3 +160,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
