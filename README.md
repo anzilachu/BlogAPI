@@ -2,10 +2,6 @@
 
 This document provides instructions on how to test each endpoint of the API.
 
-## Setup
-1. Ensure the server is running.
-2. Use a tool like Postman or cURL to make API requests.
-3. The base URL is assumed to be `http://localhost:8000/api/` .
 
 ## Endpoints
 
